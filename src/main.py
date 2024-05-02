@@ -3,21 +3,25 @@ import uvicorn
 from typing import List
 from fastapi import FastAPI
 import mysql.connector
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
 
 app = FastAPI()
 
+# Access environment variables
+db_host = os.getenv("DB_HOST")
+db_user = os.getenv("DB_USERNAME")
+db_password = os.getenv("DB_PASSWORD")
+db_database = os.getenv("DB_DATABASE")
+
 # Connect to MySQL
-
-host = os.environ.get("DB_HOST")
-user = os.environ.get("DB_USERNAME")
-password = os.environ.get("DB_PASSWORD")
-database = os.environ.get("DB_DATABASE")
-
 db = mysql.connector.connect(
-    host="localhost",
-    user="root",
-    password="Geology@7",
-    database="jod-test"
+    host=db_host,
+    user=db_user,
+    password=db_password,
+    database=db_database
 )
 print("Connected to MySQL successfully!")
 

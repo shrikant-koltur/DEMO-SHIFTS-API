@@ -147,7 +147,18 @@ SHIFTS and SLOTS APIS in FastAPI
    pip install -r requirements.txt
    ```
 
-6. Run the server
+6. Making `.env`
+
+```bash
+export DB_CONNECTION=mysql
+export DB_HOST=<your-host>
+export DB_PORT=3306
+export DB_DATABASE=<your-db>
+export DB_USERNAME=<your-username>
+export DB_PASSWORD=<your-password>
+```
+
+7. Run the server
 
 ```bash
 uvicorn src.main:app --port 7000 --reload
