@@ -164,7 +164,7 @@ export DB_PASSWORD=<your-password>
 uvicorn src.main:app --port 7000 --reload
 ```
 
-7. Swagger UI - Alternative of postman where you can put payload and check the APIs
+8. Swagger UI - Alternative of postman where you can put payload and check the APIs
 
 Go to `http://127.0.0.1:7000/docs`
 
