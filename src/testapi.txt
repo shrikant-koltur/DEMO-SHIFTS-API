@@ -1,0 +1,79 @@
+APIS
+
+POST
+/jobs/{job_id}/shifts
+# Create Shift
+
+Create a new shift for a specific job.
+Args: job_id (int): The ID of the job. shift (dict): The shift data to be created.
+Returns: dict: The created shift data.
+
+```
+{
+    "hourly_rate": 34,
+    "total_job_salary": 578,
+    "x_available": true,
+    "shift_start_time": "2024-04-26 08:00:00",
+    "shift_end_time": "24-04-26 18:00:00",
+    "shift_reminder": 2,
+    "status": 1,
+    "days_of_week": "Sunday",
+    "shift_template_id": 1,
+    "shift_uuid": "83u4egjfbh"
+}
+```
+
+
+POST
+/shifts/{shift_id}/slots
+Create Slot
+Create a new slot for a specific shift.
+Args: shift_id (int): The ID of the shift. slot (dict): The slot data to be created.
+Returns: dict: The created slot data.
+
+```
+{
+    "slot_start_date": "2024-04-26 08:00:00",
+    "slot_end_date": "24-04-26 18:00:00",
+    "status": 1
+}
+```
+
+
+PUT
+/shifts/{shift_id}
+Update Shift
+Update an existing shift.
+Args: shift_id (int): The ID of the shift to be updated. shift (dict): The updated shift data.
+Returns: dict: The updated shift data.
+
+```
+{
+    "hourly_rate": 25.5,
+    "total_job_salary": 1000.0,
+    "x_available": 5,
+    "shift_start_time": "2024-04-29 08:00:00",
+    "shift_end_time": "2024-04-29 18:00:00",
+    "shift_reminder": 30,
+    "status": 1,
+    "days_of_week": "Monday",
+    "shift_template_id": 2,
+    "shift_uuid": "c9b9e8f7d2e5f3c4e7c2"
+}
+```
+
+PUT
+/slots/{slot_id}
+Update Slot
+Update an existing slot.
+Args: slot_id (int): The ID of the slot to be updated. slot (dict): The updated slot data.
+Returns: dict: The updated slot data.
+
+```
+{
+    "shift_id":5,
+    "slot_start_date": "2023-05-01 08:00:00",
+    "slot_end_date": "2023-05-05 18:00:00",
+    "status": 3
+}
+```
