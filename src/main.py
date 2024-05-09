@@ -186,7 +186,7 @@ def create_shift(job_id: int, shift: dict):
         """
         values = (job_id, shift["hourly_rate"],shift["total_job_salary"],shift["x_available"],shift["shift_start_time"], shift["shift_end_time"], shift['shift_reminder'], shift['status'], shift['days_of_week'], shift['shift_template_id'], shift['shift_uuid'])
         cursor.execute(query, values)
-        db.commit()
+        db.connection.commit()
         shift_id = cursor.lastrowid  # Get the ID of the newly created shift
 
         # Update the job_shift_mapping table
@@ -196,7 +196,7 @@ def create_shift(job_id: int, shift: dict):
         """
         values = (job_id, shift_id)
         cursor.execute(query, values)
-        db.commit()
+        db.connection.commit()
 
         cursor.execute("SELECT * FROM shifts WHERE id = %s", (shift_id,))
         result = cursor.fetchone()
@@ -249,7 +249,7 @@ def update_shift(shift_id: int, shift: dict):
             shift_id
         )
         cursor.execute(query, values)
-        db.commit()
+        db.connection.commit()
         cursor.execute("SELECT * FROM shifts WHERE id = %s", (shift_id,))
         result = cursor.fetchone()
         cursor.close()
@@ -311,7 +311,7 @@ def create_slot(shift_id: int, slot: dict):
                 slot["status"])
     
         cursor.execute(query, values)
-        db.commit()
+        db.connection.commit()
         slot_id = cursor.lastrowid
         cursor.execute("SELECT * FROM slots WHERE id = %s", (slot_id,))
         result = cursor.fetchone()
@@ -349,7 +349,7 @@ def update_slot(slot_id: int, slot: dict):
             slot_id
         )
         cursor.execute(query, values)
-        db.commit()
+        db.connection.commit()
         cursor.execute("SELECT * FROM slots WHERE id = %s", (slot_id,))
         result = cursor.fetchone()
         cursor.close()
@@ -363,25 +363,30 @@ def update_slot(slot_id: int, slot: dict):
 @app.delete("/shifts/{shift_id}", response_model=dict)
 def delete_shift(shift_id: int):
     """
-    Delete an existing shift.
+    Mark an existing shift as deleted by updating the deleted_at column.
 
     Args:
-        shift_id (int): The ID of the shift to be deleted.
+        shift_id (int): The ID of the shift to be marked as deleted.
 
     Returns:
         dict: A success or error message.
     """
     with MysqlDatabase() as db:
         cursor = db.connection.cursor()
+
+        # Update the deleted_at column in the shifts table
         query = """
-            DELETE FROM shifts WHERE id = %s
+            UPDATE shifts
+            SET deleted_at = NOW()
+            WHERE id = %s
         """
         cursor.execute(query, (shift_id,))
         rowcount = cursor.rowcount
-        db.commit()
+        db.connection.commit()
         cursor.close()
+
         if rowcount > 0:
-            return {"message": "Shift deleted successfully"}
+            return {"message": "Shift marked as deleted successfully"}
         else:
             return {"error": "Shift not found"}
     
@@ -401,14 +406,16 @@ def delete_slot(slot_id: int):
     with MysqlDatabase() as db:
         cursor = db.connection.cursor()
         query = """
-            DELETE FROM slots WHERE id = %s
+            UPDATE slots
+            SET deleted_at = NOW()
+            WHERE id = %s
         """
         cursor.execute(query, (slot_id,))
         rowcount = cursor.rowcount
-        db.commit()
+        db.connection.commit()
         cursor.close()
         if rowcount > 0:
-            return {"message": "Slot deleted successfully"}
+            return {"message": "Slot marked as deleted successfully"}
         else:
             return {"error": "Slot not found"}
 

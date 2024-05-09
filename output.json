@@ -1,0 +1,92 @@
+{
+    "info": {
+        "name": "FastAPI API",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+        {
+            "name": "read_root",
+            "request": {
+                "url": "http://localhost:8000/",
+                "method": "GET"
+            }
+        },
+        {
+            "name": "get_shifts_for_job",
+            "request": {
+                "url": "http://localhost:8000/jobs/{job_id}/shifts",
+                "method": "GET"
+            }
+        },
+        {
+            "name": "get_slots_for_shift",
+            "request": {
+                "url": "http://localhost:8000/shifts/{shift_id}/slots",
+                "method": "GET"
+            }
+        },
+        {
+            "name": "get_users_for_shift",
+            "request": {
+                "url": "http://localhost:8000/shifts/{shift_id}/users",
+                "method": "GET"
+            }
+        },
+        {
+            "name": "get_slots_for_job",
+            "request": {
+                "url": "http://localhost:8000/jobs/{job_id}/slots-shifts",
+                "method": "GET"
+            }
+        },
+        {
+            "name": "get_job_stats",
+            "request": {
+                "url": "http://localhost:8000/jobs/{job_id}/stats",
+                "method": "GET"
+            }
+        },
+        {
+            "name": "create_shift",
+            "request": {
+                "url": "http://localhost:8000/jobs/{job_id}/shifts",
+                "method": "POST"
+            }
+        },
+        {
+            "name": "update_shift",
+            "request": {
+                "url": "http://localhost:8000/shifts/{shift_id}",
+                "method": "PUT"
+            }
+        },
+        {
+            "name": "create_slot",
+            "request": {
+                "url": "http://localhost:8000/shifts/{shift_id}/slots",
+                "method": "POST"
+            }
+        },
+        {
+            "name": "update_slot",
+            "request": {
+                "url": "http://localhost:8000/slots/{slot_id}",
+                "method": "PUT"
+            }
+        },
+        {
+            "name": "delete_shift",
+            "request": {
+                "url": "http://localhost:8000/shifts/{shift_id}",
+                "method": "DELETE"
+            }
+        },
+        {
+            "name": "delete_slot",
+            "request": {
+                "url": "http://localhost:8000/slots/{slot_id}",
+                "method": "DELETE"
+            }
+        }
+    ]
+}
